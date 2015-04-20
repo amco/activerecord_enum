@@ -31,7 +31,7 @@ module ActiveRecord
           when /year/        then :integer
           when /bit/         then :binary
           else
-            super
+            field_type
           end
       end
 
