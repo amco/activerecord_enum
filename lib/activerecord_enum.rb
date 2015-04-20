@@ -25,6 +25,16 @@ module ActiveRecord
         end
       end
 
+      def simplified_type(field_type)
+        case field_type
+          when /enum/, /set/ then :string
+          when /year/        then :integer
+          when /bit/         then :binary
+          else
+            super
+          end
+      end
+
       def extract_limit_with_enum field_type
         if field_type =~ /(?:enum|set)\(([^)]+)\)/i
           $1.scan( /'([^']*)'/ ).flatten
